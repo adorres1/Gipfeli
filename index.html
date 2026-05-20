@@ -1,278 +1,711 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Schoggigipfeli Ranking No.1</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #fdf8f3;
-        }
-        .rating-slider {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 8px;
-            border-radius: 5px;
-            background: #e5e7eb;
-            outline: none;
-        }
-        .rating-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #78350f;
-            cursor: pointer;
-            transition: background .15s ease-in-out;
-        }
-        .rating-slider::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #78350f;
-            cursor: pointer;
-        }
-        .card {
-            transition: transform 0.2s ease;
-        }
-        .card:hover {
-            transform: translateY(-2px);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Schoggigipfeli Ranking</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+
+    :root {
+      --cream: #fff7ed;
+      --choco: #78350f;
+      --caramel: #d97706;
+      --soft: #fef3c7;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(251, 191, 36, 0.22), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(146, 64, 14, 0.12), transparent 35%),
+        #fdf8f3;
+    }
+
+    .rating-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #fde68a, #f59e0b, #78350f);
+      outline: none;
+    }
+
+    .rating-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #78350f;
+      border: 3px solid #fff7ed;
+      box-shadow: 0 6px 18px rgba(120, 53, 15, 0.35);
+      cursor: pointer;
+    }
+
+    .rating-slider::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #78350f;
+      border: 3px solid #fff7ed;
+      box-shadow: 0 6px 18px rgba(120, 53, 15, 0.35);
+      cursor: pointer;
+    }
+
+    .card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 35px rgba(120, 53, 15, 0.13);
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+    }
+
+    .score-ring {
+      background:
+        radial-gradient(circle at center, white 58%, transparent 59%),
+        conic-gradient(#78350f var(--score-angle), #fde68a 0deg);
+    }
+
+    .busy {
+      opacity: 0.65;
+      pointer-events: none;
+    }
+  </style>
 </head>
-<body class="text-stone-800">
+<body class="text-stone-800 min-h-screen">
 
-    <div class="max-w-2xl mx-auto px-4 py-8">
-        <!-- Header -->
-        <header class="text-center mb-10">
-            <h1 class="text-4xl font-extrabold text-amber-900 mb-2">Schoggigipfeli Ranking No.1</h1>
-            <p class="text-sm uppercase tracking-widest text-amber-700 font-semibold">
-                Studie 12/2025: Quantitative und qualitative Analyse im Alltag
-            </p>
-        </header>
+  <div class="max-w-3xl mx-auto px-4 py-6 sm:py-10">
+    <header class="text-center mb-8 sm:mb-10">
+      <div class="inline-flex items-center gap-2 bg-white/80 border border-amber-100 rounded-full px-4 py-2 shadow-sm mb-4">
+        <span>🥐</span>
+        <span class="text-xs font-black uppercase tracking-[0.22em] text-amber-800">Feldstudie</span>
+      </div>
+      <h1 class="text-4xl sm:text-5xl font-black text-amber-950 mb-2 leading-tight">Schoggigipfeli Ranking</h1>
+      <p class="text-sm uppercase tracking-widest text-amber-700 font-bold">
+        Quantitative und qualitative Analyse im Alltag
+      </p>
+    </header>
 
-        <!-- Input Form -->
-        <section class="bg-white rounded-3xl shadow-xl p-6 mb-10 border border-amber-100">
-            <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
-                🥐 Neue Analyse erfassen
-            </h2>
-            
-            <div class="space-y-6">
-                <!-- Metadata -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-stone-600 mb-1">Objekt</label>
-                        <input type="text" id="objekt" placeholder="z.B. Butter-Schoggigipfeli" class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-amber-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-stone-600 mb-1">Kaufort</label>
-                        <input type="text" id="kaufort" placeholder="z.B. Coop, Bäcker XY..." class="w-full px-4 py-2 border rounded-xl focus:ring-2 focus:ring-amber-500 outline-none">
-                    </div>
-                </div>
+    <section class="glass rounded-[2rem] shadow-xl p-5 sm:p-7 mb-8 border border-amber-100">
+      <div class="flex items-start justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-2xl font-black text-amber-950 flex items-center gap-2">
+            Neue Analyse erfassen
+          </h2>
+          <p class="text-sm text-stone-500 mt-1">Bewerten, Foto hochladen und direkt in die Rangliste schicken.</p>
+        </div>
+        <button onclick="loadRankings()" class="shrink-0 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 font-bold text-sm px-3 py-2 rounded-xl">
+          ↻ Laden
+        </button>
+      </div>
 
-                <hr class="border-stone-100">
+      <div id="form-area" class="space-y-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-bold text-stone-600 mb-1">Nickname</label>
+            <input type="text" id="nickname" placeholder="z.B. Domi" class="w-full px-4 py-3 border border-stone-200 rounded-2xl focus:ring-2 focus:ring-amber-500 outline-none bg-white">
+          </div>
+          <div>
+            <label class="block text-sm font-bold text-stone-600 mb-1">Gruppencode</label>
+            <input type="password" id="group-code" placeholder="Gruppencode" class="w-full px-4 py-3 border border-stone-200 rounded-2xl focus:ring-2 focus:ring-amber-500 outline-none bg-white">
+          </div>
+        </div>
 
-                <!-- Rating Criteria -->
-                <div class="space-y-8">
-                    <!-- FGI -->
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <label class="font-semibold text-amber-900">Fgi <span class="text-xs font-normal text-stone-500">(Fülligs gnuss index - 1.5x)</span></label>
-                            <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-bold" id="val-fgi">5</span>
-                        </div>
-                        <input type="range" id="fgi" min="1" max="10" value="5" class="rating-slider" oninput="updateVal('fgi')">
-                        <textarea id="comm-fgi" placeholder="Kommentar zur Füllung..." class="mt-2 w-full p-2 text-sm border rounded-lg h-16 outline-none focus:border-amber-400"></textarea>
-                    </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-bold text-stone-600 mb-1">Objekt</label>
+            <input type="text" id="objekt" placeholder="z.B. Butter-Schoggigipfeli" class="w-full px-4 py-3 border border-stone-200 rounded-2xl focus:ring-2 focus:ring-amber-500 outline-none bg-white">
+          </div>
+          <div>
+            <label class="block text-sm font-bold text-stone-600 mb-1">Kaufort</label>
+            <input type="text" id="kaufort" placeholder="z.B. Coop, Bäcker XY..." class="w-full px-4 py-3 border border-stone-200 rounded-2xl focus:ring-2 focus:ring-amber-500 outline-none bg-white">
+          </div>
+        </div>
 
-                    <!-- TGK -->
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <label class="font-semibold text-amber-900">Tgk <span class="text-xs font-normal text-stone-500">(Teig geilheits koeffiziänt - 1.0x)</span></label>
-                            <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-bold" id="val-tgk">5</span>
-                        </div>
-                        <input type="range" id="tgk" min="1" max="10" value="5" class="rating-slider" oninput="updateVal('tgk')">
-                        <textarea id="comm-tgk" placeholder="Kommentar zum Teig..." class="mt-2 w-full p-2 text-sm border rounded-lg h-16 outline-none focus:border-amber-400"></textarea>
-                    </div>
+        <div class="bg-amber-50/80 border border-amber-100 rounded-3xl p-4">
+          <label class="block text-sm font-black text-amber-950 mb-2">Foto optional</label>
+          <input type="file" id="photo" accept="image/*" class="block w-full text-sm text-stone-600 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-bold file:bg-amber-800 file:text-white hover:file:bg-amber-900">
+          <div id="photo-preview-wrap" class="hidden mt-4">
+            <img id="photo-preview" alt="Vorschau" class="w-full max-h-72 object-cover rounded-2xl border border-amber-100 shadow-sm">
+          </div>
+          <p class="text-xs text-stone-500 mt-2">Das Bild wird vor dem Upload im Browser verkleinert.</p>
+        </div>
 
-                    <!-- KVE -->
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <label class="font-semibold text-amber-900">Kve <span class="text-xs font-normal text-stone-500">(Kafi verträglechkeis Einstufung - 0.5x)</span></label>
-                            <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-bold" id="val-kve">5</span>
-                        </div>
-                        <input type="range" id="kve" min="1" max="10" value="5" class="rating-slider" oninput="updateVal('kve')">
-                        <textarea id="comm-kve" placeholder="Wie passt er zum Kaffee?" class="mt-2 w-full p-2 text-sm border rounded-lg h-16 outline-none focus:border-amber-400"></textarea>
-                    </div>
+        <hr class="border-amber-100">
 
-                    <!-- OI -->
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <label class="font-semibold text-amber-900">OI <span class="text-xs font-normal text-stone-500">(Optische impact - 1.0x)</span></label>
-                            <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-bold" id="val-oi">5</span>
-                        </div>
-                        <input type="range" id="oi" min="1" max="10" value="5" class="rating-slider" oninput="updateVal('oi')">
-                        <textarea id="comm-oi" placeholder="Optischer Eindruck..." class="mt-2 w-full p-2 text-sm border rounded-lg h-16 outline-none focus:border-amber-400"></textarea>
-                    </div>
-                </div>
-
-                <button onclick="addRanking()" class="w-full bg-amber-800 hover:bg-amber-900 text-white font-bold py-4 rounded-2xl shadow-lg transition-colors flex items-center justify-center gap-2">
-                    Analyse speichern & auswerten
-                </button>
+        <div class="space-y-7">
+          <div class="criterion" data-key="fgi">
+            <div class="flex justify-between items-center mb-2 gap-2">
+              <label class="font-black text-amber-950">FGI <span class="text-xs font-semibold text-stone-500">(Fülligs Gnuss Index · 1.5x)</span></label>
+              <span class="bg-amber-100 text-amber-900 px-3 py-1 rounded-full font-black" id="val-fgi">5</span>
             </div>
-        </section>
+            <input type="range" id="fgi" min="1" max="10" value="5" class="rating-slider" oninput="updateVal('fgi')">
+            <textarea id="comm-fgi" placeholder="Kommentar zur Füllung..." class="mt-3 w-full p-3 text-sm border border-stone-200 rounded-2xl h-20 outline-none focus:border-amber-400 bg-white"></textarea>
+          </div>
 
-        <!-- Results Section -->
-        <section id="results-container" class="space-y-6">
-            <h2 class="text-2xl font-bold text-amber-900 flex items-center gap-2">
-                📊 Aktuelle Rangliste
-            </h2>
-            <div id="rankings-list" class="space-y-4">
-                <!-- Dynamically populated -->
-                <p class="text-stone-400 italic text-center py-10">Noch keine Analysen vorhanden.</p>
+          <div class="criterion" data-key="tgk">
+            <div class="flex justify-between items-center mb-2 gap-2">
+              <label class="font-black text-amber-950">TGK <span class="text-xs font-semibold text-stone-500">(Teig Geilheits Koeffiziänt · 1.0x)</span></label>
+              <span class="bg-amber-100 text-amber-900 px-3 py-1 rounded-full font-black" id="val-tgk">5</span>
             </div>
-        </section>
-    </div>
+            <input type="range" id="tgk" min="1" max="10" value="5" class="rating-slider" oninput="updateVal('tgk')">
+            <textarea id="comm-tgk" placeholder="Kommentar zum Teig..." class="mt-3 w-full p-3 text-sm border border-stone-200 rounded-2xl h-20 outline-none focus:border-amber-400 bg-white"></textarea>
+          </div>
 
-    <!-- Notification system -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-stone-800 text-white px-6 py-3 rounded-full shadow-2xl transform translate-y-20 transition-transform duration-300 pointer-events-none">
-        Ranking hinzugefügt!
-    </div>
+          <div class="criterion" data-key="kve">
+            <div class="flex justify-between items-center mb-2 gap-2">
+              <label class="font-black text-amber-950">KVE <span class="text-xs font-semibold text-stone-500">(Kafi Verträglechkeis Einstufung · 0.5x)</span></label>
+              <span class="bg-amber-100 text-amber-900 px-3 py-1 rounded-full font-black" id="val-kve">5</span>
+            </div>
+            <input type="range" id="kve" min="1" max="10" value="5" class="rating-slider" oninput="updateVal('kve')">
+            <textarea id="comm-kve" placeholder="Wie passt er zum Kaffee?" class="mt-3 w-full p-3 text-sm border border-stone-200 rounded-2xl h-20 outline-none focus:border-amber-400 bg-white"></textarea>
+          </div>
 
-    <script>
-        let rankings = [];
+          <div class="criterion" data-key="oi">
+            <div class="flex justify-between items-center mb-2 gap-2">
+              <label class="font-black text-amber-950">OI <span class="text-xs font-semibold text-stone-500">(Optische Impact · 1.0x)</span></label>
+              <span class="bg-amber-100 text-amber-900 px-3 py-1 rounded-full font-black" id="val-oi">5</span>
+            </div>
+            <input type="range" id="oi" min="1" max="10" value="5" class="rating-slider" oninput="updateVal('oi')">
+            <textarea id="comm-oi" placeholder="Optischer Eindruck..." class="mt-3 w-full p-3 text-sm border border-stone-200 rounded-2xl h-20 outline-none focus:border-amber-400 bg-white"></textarea>
+          </div>
+        </div>
 
-        function updateVal(id) {
-            document.getElementById('val-' + id).innerText = document.getElementById(id).value;
+        <button id="save-btn" onclick="addRanking()" class="w-full bg-amber-800 hover:bg-amber-900 text-white font-black py-4 rounded-3xl shadow-lg transition-colors flex items-center justify-center gap-2">
+          <span id="save-label">Analyse speichern & auswerten</span>
+        </button>
+      </div>
+    </section>
+
+    <section id="results-container" class="space-y-5">
+      <div class="flex items-end justify-between gap-4">
+        <div>
+          <h2 class="text-2xl font-black text-amber-950 flex items-center gap-2">
+            Aktuelle Rangliste
+          </h2>
+          <p id="ranking-count" class="text-sm text-stone-500">Lädt...</p>
+        </div>
+        <div class="hidden sm:block text-right text-xs text-stone-400 font-bold uppercase tracking-widest">
+          Gipfeli-Score /40
+        </div>
+      </div>
+
+      <div id="rankings-list" class="space-y-4">
+        <p class="text-stone-400 italic text-center py-10">Lädt Rangliste...</p>
+      </div>
+    </section>
+  </div>
+
+  <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-stone-900 text-white px-5 py-3 rounded-full shadow-2xl translate-y-24 transition-transform duration-300 pointer-events-none z-50 max-w-[92vw] text-center text-sm font-bold">
+    Meldung
+  </div>
+
+  <script>
+    const API_BASE = "https://schoggigipfeli-api.domi-jufer.workers.dev";
+
+    const criterionMeta = {
+      fgi: {
+        label: "FGI",
+        full: "Füllung",
+        long: "Fülligs Gnuss Index",
+        weight: 1.5
+      },
+      tgk: {
+        label: "TGK",
+        full: "Teig",
+        long: "Teig Geilheits Koeffiziänt",
+        weight: 1.0
+      },
+      kve: {
+        label: "KVE",
+        full: "Kafi-Passung",
+        long: "Kafi Verträglechkeis Einstufung",
+        weight: 0.5
+      },
+      oi: {
+        label: "OI",
+        full: "Optik",
+        long: "Optische Impact",
+        weight: 1.0
+      }
+    };
+
+    const genericComments = {
+      fgi: {
+        1: "Die Füllung ist eher eine theoretische Möglichkeit als ein reales Ereignis.",
+        2: "Die Schoggi zeigt sich kurz, verabschiedet sich aber ohne grosse Spuren.",
+        3: "Die Füllung ist vorhanden, aber sie spielt klar Nebenrolle.",
+        4: "Schoggi ist erkennbar, bleibt aber etwas zu brav und zurückhaltend.",
+        5: "Solide Füllung ohne Drama, aber auch ohne Standing Ovation.",
+        6: "Angenehm schoggig, mit Luft nach oben bei Menge und Verteilung.",
+        7: "Die Füllung macht Freude und trägt das Gipfeli ordentlich.",
+        8: "Sehr erfreuliche Schoggi-Präsenz mit gutem Biss und schöner Balance.",
+        9: "Die Füllung liefert stark ab und nähert sich gefährlich der Legende.",
+        10: "Schoggi-Ekstase. Hier wurde nicht gefüllt, hier wurde ein Statement gesetzt."
+      },
+      tgk: {
+        1: "Der Teig wirkt müde, trocken und etwas beleidigt vom eigenen Auftrag.",
+        2: "Teigstruktur vorhanden, Begeisterung eher nicht.",
+        3: "Der Teig erfüllt Grundfunktionen, bleibt aber kulinarisch blass.",
+        4: "Ein akzeptabler Teig, aber noch weit weg vom knusprigen Höhenflug.",
+        5: "Teigmässig solide Mitte, unauffällig und funktional.",
+        6: "Der Teig ist ordentlich, leicht knusprig und grundsätzlich sympathisch.",
+        7: "Schöner Teig mit angenehmer Struktur und guter Alltagstauglichkeit.",
+        8: "Knusprig, luftig und deutlich über dem Standardregal.",
+        9: "Der Teig ist nahe an der Lehrbuch-Version eines gelungenen Gipfelis.",
+        10: "Teig-Gold. Blättrig, zart und dramatisch überzeugend."
+      },
+      kve: {
+        1: "Zum Kaffee entsteht keine Freundschaft, höchstens ein höfliches Nebeneinander.",
+        2: "Der Kafi hilft, aber eher als Krisenintervention.",
+        3: "Mit Kaffee wird es besser, aber nicht unbedingt gut.",
+        4: "Die Kombination funktioniert, bleibt aber etwas sperrig.",
+        5: "Neutraler Kafi-Begleiter ohne grössere Auffälligkeiten.",
+        6: "Passt zum Kaffee, besonders wenn der Kaffee grosszügig ist.",
+        7: "Angenehmes Zusammenspiel, der Kafi hebt das Gipfeli klar an.",
+        8: "Sehr gute Kafi-Symbiose mit stabilem Znüni-Potenzial.",
+        9: "Kaffee und Gipfeli wirken wie ein eingespieltes Duo.",
+        10: "Perfektes Kafi-Match. Das ist keine Beilage, das ist Ritual."
+      },
+      oi: {
+        1: "Optisch wirkt es wie ein Gipfeli nach einer langen Nachtschicht.",
+        2: "Die Form ist erkennbar, der Stolz hält sich aber in Grenzen.",
+        3: "Optisch okay, aber kein Objekt für eine Werbekampagne.",
+        4: "Ein brauchbarer Auftritt mit kleinen ästhetischen Unsicherheiten.",
+        5: "Solide Erscheinung ohne besondere visuelle Eskalation.",
+        6: "Sieht ordentlich aus und macht auf dem Teller eine gute Figur.",
+        7: "Ansprechender Auftritt mit klarer Gipfeli-Würde.",
+        8: "Sehr schönes Exemplar, fotografisch absolut vertretbar.",
+        9: "Optisch stark. Dieses Gipfeli weiss, dass es beobachtet wird.",
+        10: "Museumsreif. Fast zu schön zum Essen, aber nur fast."
+      }
+    };
+
+    let rankings = [];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("nickname").value = localStorage.getItem("gipfeliNickname") || "";
+      document.getElementById("group-code").value = localStorage.getItem("gipfeliGroupCode") || "";
+
+      ["fgi", "tgk", "kve", "oi"].forEach(updateVal);
+
+      document.getElementById("photo").addEventListener("change", handlePhotoPreview);
+
+      loadRankings();
+    });
+
+    function updateVal(id) {
+      const input = document.getElementById(id);
+      const badge = document.getElementById("val-" + id);
+      badge.innerText = input.value;
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.innerText = msg;
+      t.classList.remove("translate-y-24");
+      setTimeout(() => t.classList.add("translate-y-24"), 3200);
+    }
+
+    function setBusy(isBusy, label = "Analyse speichern & auswerten") {
+      const area = document.getElementById("form-area");
+      const btn = document.getElementById("save-btn");
+      const saveLabel = document.getElementById("save-label");
+
+      area.classList.toggle("busy", isBusy);
+      btn.disabled = isBusy;
+      saveLabel.innerText = label;
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function photoUrl(relativeUrl) {
+      if (!relativeUrl) return "";
+      if (relativeUrl.startsWith("http")) return relativeUrl;
+      return API_BASE + relativeUrl;
+    }
+
+    function handlePhotoPreview() {
+      const file = document.getElementById("photo").files[0];
+      const wrap = document.getElementById("photo-preview-wrap");
+      const img = document.getElementById("photo-preview");
+
+      if (!file) {
+        wrap.classList.add("hidden");
+        img.src = "";
+        return;
+      }
+
+      img.src = URL.createObjectURL(file);
+      wrap.classList.remove("hidden");
+    }
+
+    async function compressImage(file, maxWidth = 1600, quality = 0.82) {
+      if (!file || !file.type.startsWith("image/")) return file;
+
+      try {
+        const bitmap = await createImageBitmap(file);
+        const scale = Math.min(1, maxWidth / bitmap.width);
+        const width = Math.round(bitmap.width * scale);
+        const height = Math.round(bitmap.height * scale);
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(bitmap, 0, 0, width, height);
+
+        const blob = await new Promise((resolve) => {
+          canvas.toBlob(resolve, "image/jpeg", quality);
+        });
+
+        if (!blob) return file;
+
+        return new File([blob], "schoggigipfeli.jpg", { type: "image/jpeg" });
+      } catch (error) {
+        console.warn("Bild konnte nicht komprimiert werden, Original wird verwendet.", error);
+        return file;
+      }
+    }
+
+    async function loadRankings() {
+      const list = document.getElementById("rankings-list");
+      const count = document.getElementById("ranking-count");
+
+      list.innerHTML = '<p class="text-stone-400 italic text-center py-10">Lädt Rangliste...</p>';
+      count.innerText = "Lädt...";
+
+      try {
+        const response = await fetch(API_BASE + "/api/ratings");
+        const result = await response.json();
+
+        if (!result.ok) {
+          throw new Error(result.error || "Rangliste konnte nicht geladen werden.");
         }
 
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.innerText = msg;
-            t.classList.remove('translate-y-20');
-            setTimeout(() => t.classList.add('translate-y-20'), 3000);
+        rankings = result.ratings || [];
+        renderRankings();
+      } catch (error) {
+        list.innerHTML = `
+          <div class="bg-red-50 border border-red-200 text-red-800 rounded-2xl p-4">
+            <strong>Fehler:</strong> ${escapeHtml(error.message)}
+          </div>
+        `;
+        count.innerText = "Fehler beim Laden";
+      }
+    }
+
+    async function uploadPhotoIfNeeded(code) {
+      const fileInput = document.getElementById("photo");
+      const file = fileInput.files[0];
+
+      if (!file) return null;
+
+      const compressed = await compressImage(file);
+
+      if (compressed.size > 2 * 1024 * 1024) {
+        throw new Error("Das Foto ist auch nach dem Verkleinern noch zu gross. Bitte ein kleineres Bild wählen.");
+      }
+
+      const formData = new FormData();
+      formData.append("code", code);
+      formData.append("photo", compressed);
+
+      const response = await fetch(API_BASE + "/api/upload", {
+        method: "POST",
+        body: formData
+      });
+
+      const result = await response.json();
+
+      if (!result.ok) {
+        throw new Error(result.error || "Foto konnte nicht hochgeladen werden.");
+      }
+
+      return result.fotoKey;
+    }
+
+    async function addRanking() {
+      const code = document.getElementById("group-code").value.trim();
+      const nickname = document.getElementById("nickname").value.trim();
+      const objekt = document.getElementById("objekt").value.trim();
+      const kaufort = document.getElementById("kaufort").value.trim();
+
+      if (!code) {
+        showToast("Bitte Gruppencode eingeben.");
+        return;
+      }
+
+      if (!objekt || !kaufort) {
+        showToast("Bitte Objekt und Kaufort angeben.");
+        return;
+      }
+
+      localStorage.setItem("gipfeliNickname", nickname);
+      localStorage.setItem("gipfeliGroupCode", code);
+
+      setBusy(true, "Wird gespeichert...");
+
+      try {
+        let fotoKey = null;
+
+        if (document.getElementById("photo").files[0]) {
+          setBusy(true, "Foto wird hochgeladen...");
+          fotoKey = await uploadPhotoIfNeeded(code);
         }
 
-        function calculateScore(fgi, tgk, kve, oi) {
-            // Weights: Fgi 1.5, Tgk 1, Kve 0.5, OI 1
-            // Max potential: (10*1.5) + (10*1) + (10*0.5) + (10*1) = 15 + 10 + 5 + 10 = 40
-            const score = (fgi * 1.5) + (tgk * 1.0) + (kve * 0.5) + (oi * 1.0);
-            return score.toFixed(1);
+        setBusy(true, "Analyse wird gespeichert...");
+
+        const payload = {
+          code,
+          objekt,
+          kaufort,
+          nickname,
+          fgi: Number(document.getElementById("fgi").value),
+          tgk: Number(document.getElementById("tgk").value),
+          kve: Number(document.getElementById("kve").value),
+          oi: Number(document.getElementById("oi").value),
+          commFgi: document.getElementById("comm-fgi").value.trim(),
+          commTgk: document.getElementById("comm-tgk").value.trim(),
+          commKve: document.getElementById("comm-kve").value.trim(),
+          commOi: document.getElementById("comm-oi").value.trim(),
+          fotoKey
+        };
+
+        const response = await fetch(API_BASE + "/api/ratings", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        if (!result.ok) {
+          throw new Error(result.error || "Bewertung konnte nicht gespeichert werden.");
         }
 
-        function addRanking() {
-            const objekt = document.getElementById('objekt').value.trim();
-            const kaufort = document.getElementById('kaufort').value.trim();
-            
-            if (!objekt || !kaufort) {
-                showToast("Bitte Objekt und Kaufort angeben!");
-                return;
-            }
+        resetForm();
+        await loadRankings();
+        showToast("Analyse gespeichert. Gipfeli wurde wissenschaftlich eingeordnet.");
+      } catch (error) {
+        showToast(error.message);
+      } finally {
+        setBusy(false);
+      }
+    }
 
-            const data = {
-                id: Date.now(),
-                objekt,
-                kaufort,
-                date: new Date().toLocaleDateString('de-CH'),
-                fgi: parseInt(document.getElementById('fgi').value),
-                tgk: parseInt(document.getElementById('tgk').value),
-                kve: parseInt(document.getElementById('kve').value),
-                oi: parseInt(document.getElementById('oi').value),
-                commFgi: document.getElementById('comm-fgi').value,
-                commTgk: document.getElementById('comm-tgk').value,
-                commKve: document.getElementById('comm-kve').value,
-                commOi: document.getElementById('comm-oi').value,
-            };
+    function resetForm() {
+      document.getElementById("objekt").value = "";
+      document.getElementById("kaufort").value = "";
+      document.getElementById("photo").value = "";
+      document.getElementById("photo-preview-wrap").classList.add("hidden");
+      document.getElementById("photo-preview").src = "";
 
-            data.totalScore = calculateScore(data.fgi, data.tgk, data.kve, data.oi);
-            
-            rankings.unshift(data);
-            renderRankings();
-            resetForm();
-            showToast("Analyse abgeschlossen!");
-        }
+      ["fgi", "tgk", "kve", "oi"].forEach(id => {
+        document.getElementById(id).value = 5;
+        updateVal(id);
+        document.getElementById("comm-" + id).value = "";
+      });
+    }
 
-        function resetForm() {
-            document.getElementById('objekt').value = '';
-            document.getElementById('kaufort').value = '';
-            ['fgi', 'tgk', 'kve', 'oi'].forEach(id => {
-                document.getElementById(id).value = 5;
-                updateVal(id);
-                document.getElementById('comm-' + id).value = '';
-            });
-        }
+    function getCriteria(r) {
+      return [
+        { key: "fgi", value: Number(r.fgi), comment: r.comm_fgi || "" },
+        { key: "tgk", value: Number(r.tgk), comment: r.comm_tgk || "" },
+        { key: "kve", value: Number(r.kve), comment: r.comm_kve || "" },
+        { key: "oi", value: Number(r.oi), comment: r.comm_oi || "" }
+      ];
+    }
 
-        function renderRankings() {
-            const list = document.getElementById('rankings-list');
-            if (rankings.length === 0) {
-                list.innerHTML = '<p class="text-stone-400 italic text-center py-10">Noch keine Analysen vorhanden.</p>';
-                return;
-            }
+    function getGenericComment(key, value) {
+      const rounded = Math.max(1, Math.min(10, Number(value) || 5));
+      return genericComments[key][rounded] || "Eine neutrale Beobachtung ohne besondere Ausschläge.";
+    }
 
-            // Sort by total score descending
-            rankings.sort((a, b) => b.totalScore - a.totalScore);
+    function getDisplayComment(item) {
+      const actual = String(item.comment || "").trim();
+      return actual || getGenericComment(item.key, item.value);
+    }
 
-            list.innerHTML = rankings.map((r, index) => `
-                <div class="card bg-white border border-stone-200 rounded-2xl overflow-hidden shadow-sm">
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-4">
-                            <div>
-                                <span class="text-xs font-bold text-amber-700 uppercase tracking-tighter">Rang #${index + 1}</span>
-                                <h3 class="text-xl font-bold text-stone-900">${r.objekt}</h3>
-                                <p class="text-sm text-stone-500">${r.kaufort} • <span class="opacity-75">${r.date}</span></p>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-3xl font-black text-amber-800">${r.totalScore}<span class="text-sm font-normal text-stone-400">/40</span></div>
-                                <div class="text-[10px] text-stone-400 uppercase font-bold tracking-widest">Gipfeli-Score</div>
-                            </div>
-                        </div>
+    function getExtremes(r) {
+      const criteria = getCriteria(r);
+      const maxValue = Math.max(...criteria.map(c => c.value));
+      const minValue = Math.min(...criteria.map(c => c.value));
 
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4">
-                            <div class="bg-stone-50 p-2 rounded-lg text-center">
-                                <div class="text-[10px] text-stone-500 uppercase font-bold">Fgi</div>
-                                <div class="font-bold text-stone-800">${r.fgi}/10</div>
-                            </div>
-                            <div class="bg-stone-50 p-2 rounded-lg text-center">
-                                <div class="text-[10px] text-stone-500 uppercase font-bold">Tgk</div>
-                                <div class="font-bold text-stone-800">${r.tgk}/10</div>
-                            </div>
-                            <div class="bg-stone-50 p-2 rounded-lg text-center">
-                                <div class="text-[10px] text-stone-500 uppercase font-bold">Kve</div>
-                                <div class="font-bold text-stone-800">${r.kve}/10</div>
-                            </div>
-                            <div class="bg-stone-50 p-2 rounded-lg text-center">
-                                <div class="text-[10px] text-stone-500 uppercase font-bold">OI</div>
-                                <div class="font-bold text-stone-800">${r.oi}/10</div>
-                            </div>
-                        </div>
+      return {
+        maxValue,
+        minValue,
+        best: criteria.filter(c => c.value === maxValue),
+        weakest: criteria.filter(c => c.value === minValue)
+      };
+    }
 
-                        <div class="space-y-2 border-t pt-4">
-                            <p class="text-xs text-stone-600 italic">"${r.commFgi || 'Kein Kommentar zur Füllung.'}"</p>
-                            <p class="text-[10px] text-stone-400 uppercase font-bold tracking-widest text-center">— Zusammenfassung —</p>
-                            <div class="text-sm text-stone-700 bg-amber-50 p-3 rounded-xl">
-                                <strong>Qualitatives Urteil:</strong> 
-                                ${generateSummaryText(r)}
-                            </div>
-                        </div>
-                    </div>
+    function formatCriterionList(items) {
+      return items.map(i => `${criterionMeta[i.key].label} (${i.value}/10)`).join(", ");
+    }
+
+    function getQuote(r) {
+      const criteria = getCriteria(r);
+
+      const withRealComment = criteria
+        .filter(c => String(c.comment || "").trim().length > 0)
+        .sort((a, b) => b.value - a.value);
+
+      const selected = withRealComment[0] || [...criteria].sort((a, b) => b.value - a.value)[0];
+
+      return {
+        label: criterionMeta[selected.key].label,
+        full: criterionMeta[selected.key].full,
+        value: selected.value,
+        text: getDisplayComment(selected),
+        isGenerated: !String(selected.comment || "").trim()
+      };
+    }
+
+    function generateSummaryText(r) {
+      const extremes = getExtremes(r);
+      const bestText = formatCriterionList(extremes.best);
+      const weakText = formatCriterionList(extremes.weakest);
+
+      if (extremes.maxValue === extremes.minValue) {
+        return `Ausgewogenes Profil: Alle Indizes liegen bei ${extremes.maxValue}/10. Das Gipfeli zeigt damit keine klare Stärke oder Schwäche, sondern eine sehr gleichmässige Gesamtperformance.`;
+      }
+
+      return `Stärkster Bereich: ${bestText}. Kritischster Bereich: ${weakText}. Das Gesamturteil wird damit vor allem durch diesen Abstand zwischen Spitzenwert und Tiefpunkt geprägt.`;
+    }
+
+    function scoreLabel(score) {
+      if (score >= 36) return "Legendär";
+      if (score >= 31) return "Sehr stark";
+      if (score >= 25) return "Solide";
+      if (score >= 18) return "Wacklig";
+      return "Krisengipfeli";
+    }
+
+    function renderRankings() {
+      const list = document.getElementById("rankings-list");
+      const count = document.getElementById("ranking-count");
+
+      count.innerText = rankings.length === 1
+        ? "1 Analyse gespeichert"
+        : `${rankings.length} Analysen gespeichert`;
+
+      if (rankings.length === 0) {
+        list.innerHTML = '<p class="text-stone-400 italic text-center py-10">Noch keine Analysen vorhanden.</p>';
+        return;
+      }
+
+      list.innerHTML = rankings.map((r, index) => {
+        const score = Number(r.total_score);
+        const angle = Math.min(360, Math.max(0, (score / 40) * 360));
+        const quote = getQuote(r);
+        const summary = generateSummaryText(r);
+        const image = photoUrl(r.foto_url);
+
+        return `
+          <article class="card bg-white border border-amber-100 rounded-[2rem] overflow-hidden shadow-sm">
+            ${image ? `
+              <div class="relative">
+                <img src="${escapeHtml(image)}" alt="${escapeHtml(r.objekt)}" class="w-full h-56 sm:h-72 object-cover">
+                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur rounded-full px-4 py-2 shadow-sm text-sm font-black text-amber-950">
+                  Rang #${index + 1}
                 </div>
-            `).join('');
-        }
+              </div>
+            ` : ""}
 
-        function generateSummaryText(r) {
-            const score = parseFloat(r.totalScore);
-            let feedback = "";
-            if (score > 35) feedback = "Eine Offenbarung. Dieses Gipfeli setzt neue Massstäbe in der Schoggigipfeli-Historie.";
-            else if (score > 30) feedback = "Sehr solide Leistung. Ein treuer Begleiter für jeden Kafi-Plausch.";
-            else if (score > 20) feedback = "Mittelfeld. Essbar, aber ohne bleibenden Eindruck zu hinterlassen.";
-            else feedback = "Enttäuschend. Die Studie empfiehlt eine Neubeurteilung des Kauforts.";
+            <div class="p-5 sm:p-6">
+              <div class="flex justify-between items-start gap-4 mb-5">
+                <div class="min-w-0">
+                  ${!image ? `<span class="text-xs font-black text-amber-700 uppercase tracking-tighter">Rang #${index + 1}</span>` : ""}
+                  <h3 class="text-2xl font-black text-stone-950 leading-tight mt-1">${escapeHtml(r.objekt)}</h3>
+                  <p class="text-sm text-stone-500 mt-1">
+                    ${escapeHtml(r.kaufort)}
+                    ${r.nickname ? ` · getestet von ${escapeHtml(r.nickname)}` : ""}
+                    · <span class="opacity-80">${escapeHtml(formatDate(r.created_at))}</span>
+                  </p>
+                </div>
 
-            return `${feedback} Besonders hervorzuheben ist die Bewertung von ${r.oi}/10 beim optischen Impact.`;
-        }
-    </script>
+                <div class="text-right shrink-0">
+                  <div class="score-ring w-20 h-20 rounded-full grid place-items-center" style="--score-angle:${angle}deg">
+                    <div>
+                      <div class="text-2xl font-black text-amber-900 leading-none">${escapeHtml(score.toFixed(1).replace(".0", ""))}</div>
+                      <div class="text-[10px] text-stone-400 font-black uppercase">/40</div>
+                    </div>
+                  </div>
+                  <div class="text-[10px] text-amber-800 uppercase font-black tracking-widest mt-1">${escapeHtml(scoreLabel(score))}</div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-5">
+                ${renderScoreBox("fgi", r.fgi)}
+                ${renderScoreBox("tgk", r.tgk)}
+                ${renderScoreBox("kve", r.kve)}
+                ${renderScoreBox("oi", r.oi)}
+              </div>
+
+              <div class="space-y-3 border-t border-amber-100 pt-5">
+                <div class="bg-amber-50 p-4 rounded-2xl border border-amber-100">
+                  <div class="text-[10px] text-amber-800 uppercase font-black tracking-widest mb-1">
+                    Zitat · ${escapeHtml(quote.label)} ${escapeHtml(quote.value)}/10${quote.isGenerated ? " · generiert" : ""}
+                  </div>
+                  <p class="text-sm sm:text-base text-stone-800 italic">„${escapeHtml(quote.text)}“</p>
+                </div>
+
+                <div class="bg-stone-50 p-4 rounded-2xl border border-stone-100">
+                  <div class="text-[10px] text-stone-500 uppercase font-black tracking-widest mb-1">Zusammenfassung</div>
+                  <p class="text-sm text-stone-700">${escapeHtml(summary)}</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderScoreBox(key, value) {
+      const meta = criterionMeta[key];
+      return `
+        <div class="bg-stone-50 p-3 rounded-2xl text-center border border-stone-100">
+          <div class="text-[10px] text-stone-500 uppercase font-black">${escapeHtml(meta.label)}</div>
+          <div class="font-black text-lg text-stone-900">${escapeHtml(value)}/10</div>
+          <div class="text-[10px] text-stone-400">${escapeHtml(meta.full)}</div>
+        </div>
+      `;
+    }
+
+    function formatDate(value) {
+      if (!value) return "";
+      const normalized = String(value).replace(" ", "T") + "Z";
+      const date = new Date(normalized);
+
+      if (Number.isNaN(date.getTime())) {
+        return value;
+      }
+
+      return date.toLocaleDateString("de-CH", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+      });
+    }
+  </script>
 </body>
 </html>
-
