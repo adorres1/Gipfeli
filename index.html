@@ -204,6 +204,18 @@
     </section>
   </div>
 
+  <div id="image-modal" class="hidden fixed inset-0 z-[100] bg-stone-950/90 p-4 sm:p-8" onclick="closeImageModal()">
+    <div class="absolute top-4 right-4 flex gap-2">
+      <button type="button" onclick="event.stopPropagation(); closeImageModal();" class="bg-white text-stone-950 rounded-full px-4 py-2 font-black shadow-lg">
+        ✕ Schliessen
+      </button>
+    </div>
+    <div class="h-full w-full flex flex-col items-center justify-center gap-4">
+      <img id="modal-image" src="" alt="" class="max-w-full max-h-[82vh] object-contain rounded-2xl shadow-2xl bg-white" onclick="event.stopPropagation();">
+      <div id="modal-caption" class="text-white text-center text-sm sm:text-base font-bold"></div>
+    </div>
+  </div>
+
   <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-stone-900 text-white px-5 py-3 rounded-full shadow-2xl translate-y-24 transition-transform duration-300 pointer-events-none z-50 max-w-[92vw] text-center text-sm font-bold">
     Meldung
   </div>
@@ -334,11 +346,46 @@
         .replaceAll("'", "&#039;");
     }
 
+    function escapeJs(value) {
+      return String(value ?? "")
+        .replaceAll("\\", "\\\\")
+        .replaceAll("'", "\\'")
+        .replaceAll("\n", " ")
+        .replaceAll("\r", " ");
+    }
+
     function photoUrl(relativeUrl) {
       if (!relativeUrl) return "";
       if (relativeUrl.startsWith("http")) return relativeUrl;
       return API_BASE + relativeUrl;
     }
+
+    function openImageModal(src, caption) {
+      const modal = document.getElementById("image-modal");
+      const img = document.getElementById("modal-image");
+      const cap = document.getElementById("modal-caption");
+
+      img.src = src;
+      img.alt = caption || "Schoggigipfeli-Foto";
+      cap.innerText = caption || "";
+      modal.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeImageModal() {
+      const modal = document.getElementById("image-modal");
+      const img = document.getElementById("modal-image");
+
+      modal.classList.add("hidden");
+      img.src = "";
+      document.body.style.overflow = "";
+    }
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeImageModal();
+      }
+    });
 
     function handlePhotoPreview() {
       const file = document.getElementById("photo").files[0];
@@ -623,12 +670,15 @@
         return `
           <article class="card bg-white border border-amber-100 rounded-[2rem] overflow-hidden shadow-sm">
             ${image ? `
-              <div class="relative">
+              <button type="button" onclick="openImageModal('${escapeJs(image)}', '${escapeJs(r.objekt)}')" class="relative block w-full text-left cursor-zoom-in group">
                 <img src="${escapeHtml(image)}" alt="${escapeHtml(r.objekt)}" class="w-full h-56 sm:h-72 object-cover">
                 <div class="absolute top-4 left-4 bg-white/90 backdrop-blur rounded-full px-4 py-2 shadow-sm text-sm font-black text-amber-950">
                   Rang #${index + 1}
                 </div>
-              </div>
+                <div class="absolute bottom-4 right-4 bg-stone-950/75 text-white rounded-full px-4 py-2 text-xs font-black uppercase tracking-widest opacity-90 group-hover:opacity-100">
+                  ⛶ Bild ansehen
+                </div>
+              </button>
             ` : ""}
 
             <div class="p-5 sm:p-6">
